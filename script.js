@@ -1,15 +1,49 @@
 class chessMoves {
+    #boardModel;
     constructor(domElement) {
-
+        this.#initModel();
     }
+
+    #initModel() {
+        let clearBoardModel = [];
+
+        for (let i = 0, index = 0; i < 8; i++) {
+            let row = [];
+            for (let j = 0; j < 8; j++) {
+                row = [...row, index++];
+            }
+            clearBoardModel = [...clearBoardModel, row];
+        }
+        this.#boardModel = clearBoardModel;
+    }
+
+    discoverCoordinates(cellNumber) {
+        const coordinatesOfCell = this.#boardModel.reduce((coordinates, row, index) => {
+            let position = row.indexOf(cellNumber);
+            if (position >= 0) return { 'col': position + 1, 'row' : index + 1}
+            return coordinates
+        }, { 'col': null, 'row' : null});
+        return coordinatesOfCell;
+    }
+
+
 }
 
 
-
-
 document.addEventListener('DOMContentLoaded', () => {
+    const board = new chessMoves();
 
-//Collect elements for work
+
+    const clickHandler = (event) => {
+        const index = parseInt(event.target.dataset.index);
+        const nowWeAre = board.discoverCoordinates(index);
+        console.log(nowWeAre);
+    };
+
+
+
+
+    //Collect elements for work
     const elField = document.querySelector('#chess-board');
     const elClearButton = document.getElementById('clear-btn');
     let elCells = document.querySelectorAll('.field__cell');
@@ -26,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const cell = document.createElement('div');
                 cell.classList.add('field__cell');
                 if (cellBlack) cell.classList.add('field__cell--black');
-                cell.innerHTML = ``;
+                cell.innerHTML = `${index}`;
                 cell.dataset.index = String(index++);
                 cell.onclick = clickHandler;
                 targetArea.append(cell);
@@ -68,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    const clickHandler = (event) => {
+    const clickHandler333 = (event) => {
         elCells = document.querySelectorAll('.field__cell');
 
         let col = event.target.dataset.col;
