@@ -24,40 +24,26 @@ body {
 	transition-duration: 2s;
 }
 
-.feild__row {
-	display: flex;
-	height: 64px;
-	flex-direction: row;
-	padding: 0;
-	margin: 0;
-	
-}
-
-.feild__row:nth-child(odd) .field__cell:nth-child(odd)  {
-	background-color: #7cc;
-}
-
-.feild__row:nth-child(even) .field__cell:nth-child(even)  {
-	background-color: #7cc;
-}
-		
 .field__cell {
-	width: 64px;
-	height: 64px;
 	border: 1px solid #777;
 	background-color: #fff;
 	transition-property: background-color;
 	transition-duration: 0.3s;
 }
+
+.field__cell--black {
+	background-color: #e19299;
+}
+
+
 .field__cell:hover {
 	/*border: 2px solid #646f94;*/
 	outline: #555 1px auto;
 	outline-offset: -3px;
 }
 
-.active {
+.field__cell--active {
 	background-color: orange !important;
-
 }
 
 

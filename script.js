@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
 //Collect elements for work
-    const elField = document.querySelector('.field');
+    const elField = document.querySelector('#chess-board');
     const elClearButton = document.getElementById('clear');
     let elCells = document.querySelectorAll('.field__cell');
 
@@ -11,14 +11,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const drawField = (targetArea) => {
         targetArea.textContent = '';
         let cellBlack = true;
-        for (let i = 0; i < 8; i++) {
+        for (let i = 0, index = 0; i < 8; i++) {
             cellBlack ? cellBlack = false : cellBlack = true;
             for (let j = 0; j < 8; j++) {
                 const cell = document.createElement('div');
                 cell.classList.add('field__cell');
                 if (cellBlack) cell.classList.add('field__cell--black');
-                cell.innerHTML = ``; //`${j+1} in row ${i+1}`
-                cell.dataset.index = String(j + (i * j));
+                cell.innerHTML = ``;
+                cell.dataset.index = String(index++);
                 cell.onclick = clickHandler;
                 targetArea.append(cell);
                 cellBlack ? cellBlack = false : cellBlack = true;
