@@ -1,8 +1,17 @@
+class chessMoves {
+    constructor(domElement) {
+
+    }
+}
+
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
 
 //Collect elements for work
     const elField = document.querySelector('#chess-board');
-    const elClearButton = document.getElementById('clear');
+    const elClearButton = document.getElementById('clear-btn');
     let elCells = document.querySelectorAll('.field__cell');
 
     let markedCells = [];
