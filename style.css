@@ -1,0 +1,66 @@
+:root {
+	box-sizing: border-box;
+}
+
+*, ::before, ::after {
+	box-sizing: inherit;
+}
+
+body {
+	background-color: #eee;
+	font-family: Helvetica, Arial, sans-serif;
+}
+
+.field {
+	display: grid;
+	grid-template-columns: repeat(8, 1fr);
+	grid-template-rows: repeat(8, 1fr);
+	background: #fff;
+	width: 512px;
+	height: 512px;
+	margin-bottom: 32px;
+	flex-wrap: wrap;
+			transition-property: background-color;
+	transition-duration: 2s;
+}
+
+.feild__row {
+	display: flex;
+	height: 64px;
+	flex-direction: row;
+	padding: 0;
+	margin: 0;
+	
+}
+
+.feild__row:nth-child(odd) .field__cell:nth-child(odd)  {
+	background-color: #7cc;
+}
+
+.feild__row:nth-child(even) .field__cell:nth-child(even)  {
+	background-color: #7cc;
+}
+		
+.field__cell {
+	width: 64px;
+	height: 64px;
+	border: 1px solid #777;
+	background-color: #fff;
+	transition-property: background-color;
+	transition-duration: 0.3s;
+}
+.field__cell:hover {
+	/*border: 2px solid #646f94;*/
+	outline: #555 1px auto;
+	outline-offset: -3px;
+}
+
+.active {
+	background-color: orange !important;
+
+}
+
+
+
+
+
