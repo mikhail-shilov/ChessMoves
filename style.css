@@ -1,49 +1,52 @@
 :root {
-	box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 *, ::before, ::after {
-	box-sizing: inherit;
+    box-sizing: inherit;
 }
 
 body {
-	background-color: #eee;
-	font-family: Helvetica, Arial, sans-serif;
+    background-color: #eee;
+    font-family: Helvetica, Arial, sans-serif;
 }
 
 .field {
-	display: grid;
-	grid-template-columns: repeat(8, 1fr);
-	grid-template-rows: repeat(8, 1fr);
-	background: #fff;
-	width: 512px;
-	height: 512px;
-	margin-bottom: 32px;
-	flex-wrap: wrap;
-			transition-property: background-color;
-	transition-duration: 2s;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    background: #fff;
+    width: 512px;
+    height: 512px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+    transition-property: background-color;
+    transition-duration: 2s;
 }
 
 .field__cell {
-	border: 1px solid #777;
-	background-color: #fff;
-	transition-property: background-color;
-	transition-duration: 0.3s;
+    border: 1px solid #777;
+    transition-property: background-color;
+    transition-duration: 0.3s;
 }
 
-.field__cell--black {
-	background-color: #e19299;
+.field__cell--dark {
+    background-color: #e19299;
+}
+
+.field__cell--light {
+    background-color: #fff;
 }
 
 
 .field__cell:hover {
-	/*border: 2px solid #646f94;*/
-	outline: #555 1px auto;
-	outline-offset: -3px;
+    /*border: 2px solid #646f94;*/
+    outline: #555 1px auto;
+    outline-offset: -3px;
 }
 
 .field__cell--active {
-	background-color: orange !important;
+    background-color: orange !important;
 }
 
 

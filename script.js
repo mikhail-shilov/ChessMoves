@@ -1,52 +1,100 @@
 class chessMoves {
-    #boardModel;
-    constructor(domElement) {
-        this.#initModel();
+    #boardNavigator; //image of array of 64 cells by field 8*8
+    #boardState; //Store is cell active or not
+    #elemField;
+    #elemCell = 'field__cell';
+    #elemCellLight = 'field__cell--light';
+    #elemCellDark = 'field__cell--dark';
+    #elemToggle = 'field__cell--active';
+
+    constructor(domElement, cssForToggle) {
+        this.#boardNavigator = this.#initModels();
+        this.#boardState = this.#initModels(false);
+        this.#elemField = domElement;
+        this.#domDrawField(this.#elemField);
     }
 
-    #initModel() {
-        let clearBoardModel = [];
+    /*заполняет доску значениями из параметра либо порядковыми номерами, если параметр не указан*/
 
+    /*fill board by content of param, or index number if param are not present*/
+    #initModels(valueToFill) {
+        let board = [];
         for (let i = 0, index = 0; i < 8; i++) {
             let row = [];
             for (let j = 0; j < 8; j++) {
-                row = [...row, index++];
+                row = [...row, (typeof valueToFill !== "undefined") ? valueToFill : index++];
             }
-            clearBoardModel = [...clearBoardModel, row];
+            board = [...board, row];
         }
-        this.#boardModel = clearBoardModel;
+        return board;
     }
 
-    discoverCoordinates(cellNumber) {
-        const coordinatesOfCell = this.#boardModel.reduce((coordinates, row, index) => {
+    #domDrawField(targetArea) {
+        targetArea.textContent = '';
+        let cellBlack = true;
+        for (let i = 0, index = 0; i < 8; i++) {
+            cellBlack ? cellBlack = false : cellBlack = true;
+            for (let j = 0; j < 8; j++) {
+                const cell = document.createElement('div');
+                cell.classList.add(this.#elemCell);
+                cell.classList.add(cellBlack ? this.#elemCellDark: this.#elemCellLight);
+                cell.innerHTML = `${index}`;
+                cell.dataset.index = String(index++);
+                targetArea.append(cell);
+                cellBlack ? cellBlack = false : cellBlack = true;
+            }
+        }
+    }
+
+    #discoverCoordinates(cellNumber) {
+        const coordinatesOfCell = this.#boardNavigator.reduce((coordinates, row, index) => {
             let position = row.indexOf(cellNumber);
-            if (position >= 0) return { 'col': position + 1, 'row' : index + 1}
+            if (position >= 0) return {'col': position, 'row': index}
             return coordinates
-        }, { 'col': null, 'row' : null});
+        }, {'col': null, 'row': null});
         return coordinatesOfCell;
     }
 
+    #setBoardState(coordinates, value) {
+        this.#boardState[coordinates.row][coordinates.col] = value;
+    }
+
+    #updateCssProperty() {
+
+    }
+
+
+    setBoardState(coordinates, value) {
+        this.#boardState[coordinates.row][coordinates.col] = value;
+        console.log(this.#boardState);
+    }
+
+
+    coordinateToConsole(cellNumber) {
+        let codersCoordinate = this.#discoverCoordinates(cellNumber);
+        let usersCoordinate = {col: codersCoordinate.col + 1, row: codersCoordinate.row + 1};
+        console.log(usersCoordinate);
+        return codersCoordinate;
+    }
 
 }
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    const board = new chessMoves();
-
-
-    const clickHandler = (event) => {
-        const index = parseInt(event.target.dataset.index);
-        const nowWeAre = board.discoverCoordinates(index);
-        console.log(nowWeAre);
-    };
-
-
-
-
     //Collect elements for work
     const elField = document.querySelector('#chess-board');
     const elClearButton = document.getElementById('clear-btn');
     let elCells = document.querySelectorAll('.field__cell');
+
+    const board = new chessMoves(elField, 'active');
+
+
+    const clickHandler = (event) => {
+        const index = parseInt(event.target.dataset.index);
+        const nowWeAre = board.coordinateToConsole(index);
+        board.setBoardState(nowWeAre, true);
+    };
+
 
     let markedCells = [];
 
@@ -67,11 +115,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 cellBlack ? cellBlack = false : cellBlack = true;
             }
         }
-    }
-
-    const targetCollector = (positionInRow, numberOfRow) => {
-        markedCells = [positionInRow, numberOfRow];
-
     }
 
 
@@ -214,7 +257,7 @@ document.addEventListener('DOMContentLoaded', () => {
         drawField(elField);
     };
 
-    drawField(elField);
+    //drawField(elField);
 
 });
 
