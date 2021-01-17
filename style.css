@@ -11,13 +11,25 @@ body {
     font-family: Helvetica, Arial, sans-serif;
 }
 
+.container {
+    margin: auto;
+    height: 100vh;
+    min-width: 320px;
+    max-width: 600px;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .field {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
     grid-template-rows: repeat(8, 1fr);
     background: #fff;
-    width: 512px;
-    height: 512px;
+    width: 100%;
+    height: auto;
     margin-bottom: 32px;
     flex-wrap: wrap;
     transition-property: background-color;
@@ -25,13 +37,15 @@ body {
 }
 
 .field__cell {
+    padding-top: 100%; /* 1:1 Aspect Ratio */
+    position: relative;
     border: 1px solid #777;
     transition-property: background-color;
-    transition-duration: 0.3s;
+    transition-duration: 0.6s;
 }
 
 .field__cell--dark {
-    background-color: #e19299;
+    background-color: #376d64;
 }
 
 .field__cell--light {
@@ -48,8 +62,3 @@ body {
 .field__cell--active {
     background-color: orange !important;
 }
-
-
-
-
-
