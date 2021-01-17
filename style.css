@@ -11,6 +11,7 @@ body {
     font-family: Helvetica, Arial, sans-serif;
 }
 
+
 .container {
     margin: auto;
     height: 100vh;
@@ -23,7 +24,11 @@ body {
     align-items: center;
 }
 
-.field {
+.chess {
+    width: 100%;
+}
+
+.chess__field {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
     grid-template-rows: repeat(8, 1fr);
@@ -36,7 +41,7 @@ body {
     transition-duration: 2s;
 }
 
-.field__cell {
+.chess__cell {
     padding-top: 100%; /* 1:1 Aspect Ratio */
     position: relative;
     border: 1px solid #777;
@@ -44,21 +49,31 @@ body {
     transition-duration: 0.6s;
 }
 
-.field__cell--dark {
+.chess__cell--dark {
     background-color: #376d64;
 }
 
-.field__cell--light {
+.chess__cell--light {
     background-color: #fff;
 }
 
-
-.field__cell:hover {
+.chess__cell:hover {
     /*border: 2px solid #646f94;*/
     outline: #555 1px auto;
     outline-offset: -3px;
 }
 
-.field__cell--active {
+.chess__cell--active {
     background-color: orange !important;
+}
+
+.chess__controls-wrapper {
+    width: 100%;
+    margin-top: 15px;
+    min-height: 48px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }
