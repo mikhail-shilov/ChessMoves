@@ -1,15 +1,9 @@
 class chessMoves {
-    boardNavigator; //Image of array of 64 cells by field 8*8.
-    boardState; //Store is cell active or not.
 
+    /* HTML area where going work */
     boardField; //Main area with chessboard.
-    controlsField; //Area with movies menu.
-
-    highlightMove = 'horse';
-    liveHighlight = true;
 
     /* Settings for css names, using in appearance. */
-
     cssApp = 'chess';
     cssField = 'chess__field';
     cssCell = 'chess__cell';
@@ -18,17 +12,26 @@ class chessMoves {
     cssToggle = 'chess__cell--active';
     cssControls = 'chess__controls-wrapper';
     cssModes = 'chess__mode-list';
-    cssButtons = 'chess__btn';
+    cssButton = 'chess__btn';
+    cssButtonActive = 'chess__btn--active';
 
+    /* Model */
+    boardNavigator; //Image of array of 64 cells by field 8*8.
+    boardState; //Store is cell active or not.
 
-    constructor(domElement, cssForToggle) {
+    /*  App settings */
+    listOfMoves = ['markup', 'horse', 'none'];
+    activeMove = 'markup';
+    liveHighlight = true;
+
+    constructor(domArea) {
         this.boardNavigator = this.initModels();
         this.boardState = this.initModels(false);
-        this.boardField = domElement;
+        this.boardField = domArea;
         this.domDrawField(this.boardField);
     }
 
-    /*fill board by content of param, or use index number if param are not present*/
+    /* Fill board by content of param, or use index number if param are not present */
     initModels(valueToFill) {
         let board = [];
         for (let i = 0, index = 0; i < 8; i++) {
@@ -77,11 +80,28 @@ class chessMoves {
 
             const listOfModes = document.createElement('ul');
             listOfModes.classList.add(this.cssModes);
+            this.listOfMoves.forEach((moveType) => {
+                let listItem = document.createElement('li');
+
+                let button = document.createElement('button');
+                button.classList.add(this.cssButton);
+                if (this.activeMove === moveType) {
+                    button.classList.add(this.cssButtonActive);
+                }
+                button.name = moveType;
+                button.innerHTML = `${moveType}`;
+
+                listItem.append(button);
+                listOfModes.append(listItem);
+            })
+            listOfModes.addEventListener('click', this.eventSelectMode.bind(this));
+
+            controls.append(listOfModes);
+
 
             const buttonLiveToggle = document.createElement('button');
             buttonLiveToggle.classList
-            let LiveToggleinnerHTML = `Live highlight (now - ${this.liveHighlight ? `on`: `off`})`;
-            buttonLiveToggle.innerHTML = LiveToggleinnerHTML;
+            buttonLiveToggle.innerHTML = `Live highlight (now - ${this.liveHighlight ? `on` : `off`})`;
             buttonLiveToggle.name = 'live-highlight';
 
             controls.append(listOfModes);
@@ -132,8 +152,8 @@ class chessMoves {
 
         const coordinates = this.discoverCoordinates(index);
 
-        switch (this.highlightMove) {
-            case "single_cell":
+        switch (this.activeMove) {
+            case "markup":
                 const currentState = this.boardState[coordinates.row][coordinates.col];
                 this.setBoardState(coordinates, !currentState);
                 break
@@ -169,6 +189,15 @@ class chessMoves {
         }
     }
 
+    eventSelectMode(event) {
+        if (event.target.classList.contains(this.cssButton)) {
+            this.activeMove = event.target.name;
+            this.boardState = this.initModels(false);
+            this.domDrawField(this.boardField);
+        }
+
+    }
+
     eventUseControls(event) {
         if (event.target.name === 'live-highlight') {
             console.log('sw')
@@ -176,7 +205,6 @@ class chessMoves {
 
         }
     }
-
 
     //Debugging and "under construction" methods.
     coordinateToConsole(cellNumber) {
@@ -189,5 +217,5 @@ class chessMoves {
 
 document.addEventListener('DOMContentLoaded', () => {
     const elField = document.querySelector('#chess');
-    const board = new chessMoves(elField, 'active');
+    new chessMoves(elField, 'active');
 });

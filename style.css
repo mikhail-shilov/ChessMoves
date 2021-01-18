@@ -35,7 +35,6 @@ body {
     background: #fff;
     width: 100%;
     height: auto;
-    margin-bottom: 32px;
     flex-wrap: wrap;
     transition-property: background-color;
     transition-duration: 2s;
@@ -64,16 +63,36 @@ body {
 }
 
 .chess__cell--active {
-    background-color: orange !important;
+    background-color: orange;
 }
 
 .chess__controls-wrapper {
     width: 100%;
     margin-top: 15px;
     min-height: 48px;
-
+    border: 1px solid #aaa;
+    background-color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
+}
 
+.chess__mode-list {
+    list-style: none;
+    padding-left: 0;
+    min-width: 300px;
+    display: flex;
+}
+
+.chess__mode-list > li + li {
+    margin-left: 25px;
+
+}
+
+.chess__btn {
+    background-color: #eee;
+}
+
+.chess__btn--active {
+    background-color: orange;
 }
